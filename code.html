@@ -3,566 +3,608 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>People's Priorities | MP Strategic Command</title>
+<title>AI Recommendation Details | People's Priorities</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind Configuration -->
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "inverse-surface": "#d4e4fa",
-                    "surface-container-high": "#1c2b3c",
-                    "surface-container": "#122131",
-                    "on-error": "#690005",
-                    "on-primary": "#1d00a5",
-                    "secondary-fixed-dim": "#4fdbc8",
-                    "on-primary-container": "#dad7ff",
-                    "secondary-container": "#04b4a2",
-                    "inverse-primary": "#4d44e3",
-                    "on-surface": "#d4e4fa",
-                    "secondary-fixed": "#71f8e4",
-                    "error": "#ffb4ab",
-                    "surface-dim": "#051424",
-                    "on-background": "#d4e4fa",
-                    "on-tertiary-container": "#ffd2bd",
-                    "tertiary-fixed": "#ffdbca",
-                    "tertiary-container": "#a04500",
-                    "surface-bright": "#2c3a4c",
-                    "on-tertiary-fixed": "#341100",
-                    "outline-variant": "#464555",
-                    "on-surface-variant": "#c7c4d8",
-                    "tertiary-fixed-dim": "#ffb690",
-                    "on-error-container": "#ffdad6",
-                    "primary-container": "#4f46e5",
-                    "primary": "#c3c0ff",
-                    "surface-variant": "#273647",
-                    "surface-container-low": "#0d1c2d",
-                    "inverse-on-surface": "#233143",
-                    "on-primary-fixed-variant": "#3323cc",
-                    "surface": "#051424",
-                    "on-tertiary": "#552100",
-                    "error-container": "#93000a",
-                    "surface-tint": "#c3c0ff",
-                    "surface-container-highest": "#273647",
-                    "on-secondary": "#003731",
-                    "outline": "#918fa1",
-                    "secondary": "#4fdbc8",
-                    "on-primary-fixed": "#0f0069",
-                    "background": "#051424",
-                    "on-secondary-fixed": "#00201c",
-                    "on-secondary-container": "#003f38",
-                    "primary-fixed": "#e2dfff",
-                    "primary-fixed-dim": "#c3c0ff",
-                    "tertiary": "#ffb690"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "gutter": "24px",
-                    "margin-desktop": "40px",
-                    "margin-mobile": "16px",
-                    "base": "8px",
-                    "container-max": "1440px"
-            },
-            "fontFamily": {
-                    "body-lg": ["Inter"],
-                    "title-lg": ["Inter"],
-                    "headline-lg-mobile": ["Inter"],
-                    "label-md": ["Geist"],
-                    "label-sm": ["Geist"],
-                    "body-md": ["Inter"],
-                    "headline-lg": ["Inter"],
-                    "display": ["Inter"],
-                    "headline-md": ["Inter"]
-            },
-            "fontSize": {
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
-                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
-                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
-            }
-          },
-        },
-      }
-    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
 <style>
-        body {
-            background-color: #051424;
-            color: #d4e4fa;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
         .glass-card {
             background: rgba(22, 27, 47, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-card:hover {
-            border-color: rgba(79, 70, 229, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
             background: rgba(28, 35, 61, 0.9);
         }
-        .ai-glow-border {
+        .ai-gradient-border {
             position: relative;
             border-radius: 0.75rem;
-            overflow: hidden;
+            padding: 1px;
+            background: linear-gradient(135deg, #4f46e5 0%, #4fdbc8 100%);
         }
-        .ai-glow-border::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            background: linear-gradient(45deg, #4F46E5, #4fdbc8, #4F46E5);
-            z-index: -1;
-            animation: borderRotate 4s linear infinite;
+        .ai-inner-card {
+            background: #161B2F;
+            border-radius: 0.7rem;
         }
-        @keyframes borderRotate {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
         }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #1c2b3c; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #4F46E5; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4F46E5;
+            border-radius: 10px;
+        }
+        .gauge-ring {
+            transition: stroke-dashoffset 1s ease-out;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 3s infinite;
+        }
     </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "surface-container": "#122131",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "secondary": "#4fdbc8",
+                        "on-primary": "#1d00a5",
+                        "primary": "#c3c0ff",
+                        "on-secondary-fixed-variant": "#005048",
+                        "surface-variant": "#273647",
+                        "surface-tint": "#c3c0ff",
+                        "primary-fixed": "#e2dfff",
+                        "surface-dim": "#051424",
+                        "on-secondary-container": "#003f38",
+                        "surface-container-highest": "#273647",
+                        "outline-variant": "#464555",
+                        "on-tertiary-container": "#ffd2bd",
+                        "on-primary-fixed": "#0f0069",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#d4e4fa",
+                        "tertiary-fixed": "#ffdbca",
+                        "surface-container-high": "#1c2b3c",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "inverse-surface": "#d4e4fa",
+                        "inverse-primary": "#4d44e3",
+                        "secondary-container": "#04b4a2",
+                        "on-surface": "#d4e4fa",
+                        "on-secondary-fixed": "#00201c",
+                        "secondary-fixed": "#71f8e4",
+                        "primary-container": "#4f46e5",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary": "#ffb690",
+                        "outline": "#918fa1",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "surface-container-lowest": "#010f1f",
+                        "surface": "#051424",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "surface-bright": "#2c3a4c",
+                        "on-secondary": "#003731",
+                        "surface-container-low": "#0d1c2d",
+                        "on-error": "#690005",
+                        "on-tertiary": "#552100",
+                        "on-surface-variant": "#c7c4d8",
+                        "inverse-on-surface": "#233143",
+                        "tertiary-container": "#a04500",
+                        "background": "#051424",
+                        "on-tertiary-fixed": "#341100"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "display": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="flex flex-col min-h-screen">
-<!-- TopNavBar -->
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-20 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl border-b border-white/10 shadow-sm shadow-black/20">
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="w-full sticky top-0 z-50 bg-surface-dim/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm flex items-center justify-between px-margin-desktop py-4">
+<div class="flex items-center gap-8">
+<h1 class="font-display text-headline-md tracking-tight text-primary">People's Priorities</h1>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 cursor-pointer active:scale-95" href="#">Home</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer active:scale-95" href="#">Recommendations</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 cursor-pointer active:scale-95" href="#">Insights</a>
+</nav>
+</div>
 <div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-primary text-headline-md" style="font-variation-settings: 'FILL' 1;">account_balance</span>
-<h1 class="font-display text-headline-md font-bold text-primary">People's Priorities</h1>
+<div class="relative group">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></div>
 </div>
-<div class="hidden md:flex flex-1 max-w-xl mx-8">
-<div class="relative w-full focus-within:ring-2 focus-within:ring-primary/50 rounded-lg bg-surface-container-low border border-white/10 transition-all duration-200">
-<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
-<input class="w-full bg-transparent border-none focus:ring-0 text-body-md pl-10 pr-4 py-2 text-on-surface placeholder:text-outline" placeholder="Search wards, projects, citizens..." type="text"/>
-</div>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-4 text-on-surface-variant">
-<button class="relative hover:text-primary transition-colors duration-200">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
-</button>
-<button class="hover:text-primary transition-colors duration-200">
-<span class="material-symbols-outlined">settings</span>
-</button>
-</div>
-<div class="flex items-center gap-3 pl-6 border-l border-white/10">
-<div class="text-right hidden lg:block">
-<p class="font-label-md text-on-surface">Hon. Representative</p>
-<p class="font-label-sm text-outline">MP, Central District</p>
-</div>
-<img class="w-10 h-10 rounded-full border border-primary/30 object-cover" data-alt="Professional studio portrait of a high-ranking government official in a dark suit against a neutral background. The lighting is sophisticated and authoritative, reflecting the premium enterprise dashboard aesthetic with deep blue and indigo undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcTGCI2l_DxeFal1YNc6IVxJ7mVzATjzBkndGcN_V7qgrH7BQGKKNVe2X1T6NocWMOvJpyNM3a9tx1KT5uE3ggr_rL0V6An72ryaUNTNp7OTiIZLXswboHaGlFEDDha7oWcdv_4jRYD-2b9iai6R0NtRwtJtrzxueYGoSEAP-zEfIXkYzN1oJRV3MT_dJGsnWO-Hzi8XOedq3heYsAjd6Xj49Ia-y6s64MdMissexpI2YPJtQi9BCgoEpqSprpvOl9XOyALmUyB9s"/>
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">settings</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="Close-up professional headshot of a government official in a suit, soft dramatic studio lighting, minimalist dark background, high resolution photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4-OAwHADeW3tctC65YH_GF1Sy6z7jE_T0flLH7EqDsg2OvosSxT6cGruVbq3ysGwOKKmljqLGXv0_aHOUWPT380J1iZSHhXOuocpApe8UK-h9YIlGCV_fIyWxbd--G5kp7mCAGrh47fAVRi281Uh3PcHMdhmUMOWr8xiuXDarMKwNphixGPs9imIJtjad-gTBFsU1z9RRknFAlI0Z1qyvheaAvZ0RSPtkFOLMEe_N3DoVouSD9y1R8DLElQnVzEAyjMDWiYQSLuI"/>
 </div>
 </div>
 </header>
-<!-- SideNavBar -->
-<aside class="fixed left-0 top-20 h-[calc(100vh-80px)] z-40 hidden lg:flex flex-col py-6 bg-surface-container-low/90 dark:bg-surface-dim/90 backdrop-blur-2xl border-r border-white/5 shadow-xl shadow-black/40 w-64">
-<div class="px-6 mb-8">
-<div class="flex items-center gap-3 text-primary mb-2">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
-<span class="font-display text-label-md font-bold uppercase tracking-widest">MP Office</span>
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/10 shadow-2xl flex flex-col py-8 z-40">
+<div class="px-6 mb-10">
+<p class="font-display text-headline-sm text-primary">Hon. Member</p>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Parliamentary Office</p>
 </div>
-<p class="font-label-sm text-outline">Strategic Command Center</p>
-</div>
-<nav class="flex-1 space-y-1">
-<a class="flex items-center gap-3 bg-primary/10 text-primary border-r-4 border-primary px-6 py-3 transition-transform active:scale-95" href="#">
+<nav class="flex-grow">
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 hover:text-on-surface transition-all group" href="#">
 <span class="material-symbols-outlined">dashboard</span>
-<span class="font-label-md">Dashboard</span>
+<span class="font-label-md text-label-md group-hover:translate-x-1 duration-300">Dashboard</span>
 </a>
-<a class="flex items-center gap-3 text-on-surface-variant px-6 py-3 hover:bg-white/5 hover:text-on-surface transition-transform active:scale-95" href="#">
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 hover:text-on-surface transition-all group" href="#">
 <span class="material-symbols-outlined">analytics</span>
-<span class="font-label-md">Analytics</span>
+<span class="font-label-md text-label-md group-hover:translate-x-1 duration-300">Analytics</span>
 </a>
-<a class="flex items-center gap-3 text-on-surface-variant px-6 py-3 hover:bg-white/5 hover:text-on-surface transition-transform active:scale-95" href="#">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-md">Constituency</span>
+<a class="flex items-center gap-4 bg-primary-container/20 text-primary border-r-4 border-primary px-6 py-4 group" href="#">
+<span class="material-symbols-outlined">location_city</span>
+<span class="font-label-md text-label-md group-hover:translate-x-1 duration-300">Constituency</span>
 </a>
-<a class="flex items-center gap-3 text-on-surface-variant px-6 py-3 hover:bg-white/5 hover:text-on-surface transition-transform active:scale-95" href="#">
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 hover:text-on-surface transition-all group" href="#">
 <span class="material-symbols-outlined">description</span>
-<span class="font-label-md">Reports</span>
+<span class="font-label-md text-label-md group-hover:translate-x-1 duration-300">Reports</span>
 </a>
 </nav>
-<div class="px-6 py-4">
-<button class="w-full py-3 bg-primary-container text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all">
-                New Initiative
+<div class="px-6 mb-6">
+<button class="w-full py-3 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-xl shadow-lg hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                AI Insight Assist
             </button>
 </div>
-<div class="mt-auto space-y-1 border-t border-white/5 pt-4">
-<a class="flex items-center gap-3 text-on-surface-variant px-6 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
+<div class="mt-auto border-t border-outline-variant/10">
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all" href="#">
 <span class="material-symbols-outlined">help</span>
-<span class="font-label-md text-label-md">Support</span>
+<span class="font-label-md text-label-md">Help Center</span>
 </a>
-<a class="flex items-center gap-3 text-on-surface-variant px-6 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
-<span class="material-symbols-outlined">archive</span>
-<span class="font-label-md text-label-md">Archive</span>
+<a class="flex items-center gap-4 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
 </a>
 </div>
 </aside>
-<!-- Main Content -->
-<main class="lg:ml-64 mt-20 p-margin-desktop flex-1">
-<!-- Hero Section -->
-<section class="mb-12">
-<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
-<div class="max-w-2xl">
-<h2 class="font-display text-display text-primary leading-tight">People's Priorities</h2>
-<p class="font-body-lg text-outline mt-2">AI-powered constituency development planning using citizen feedback, demographic intelligence, and public infrastructure data.</p>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-margin-desktop space-y-gutter">
+<!-- Breadcrumb & Header -->
+<div class="flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-2">
+<span>Dashboard</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Recommendations</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">School Infrastructure in Ward 6</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">AI Recommendation</h2>
+<p class="text-on-surface-variant font-body-md">Explainable AI-powered project recommendation based on multidimensional demand analysis.</p>
 </div>
-<div class="flex items-center gap-2 px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-full">
-<span class="relative flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
-</span>
-<span class="font-label-sm text-secondary uppercase tracking-widest">AI Intelligence Active</span>
+<div class="flex gap-3">
+<button class="px-6 py-2 glass-card rounded-xl text-label-md font-label-md flex items-center gap-2 hover:bg-surface-bright active:scale-95">
+<span class="material-symbols-outlined text-[18px]">share</span> Share
+                </button>
+<button class="px-6 py-2 glass-card rounded-xl text-label-md font-label-md flex items-center gap-2 hover:bg-surface-bright active:scale-95">
+<span class="material-symbols-outlined text-[18px]">download</span> Export PDF
+                </button>
 </div>
 </div>
-<!-- KPI Cards Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
-<div class="glass-card p-6 rounded-xl">
+<!-- Top Section: Main Recommendation Card -->
+<div class="grid grid-cols-12 gap-gutter">
+<div class="col-span-12 lg:col-span-8 glass-card rounded-2xl p-8 relative overflow-hidden">
+<!-- Abstract Glow -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 blur-[100px] rounded-full"></div>
+<div class="flex flex-col md:flex-row gap-12 items-center relative z-10">
+<!-- Gauge Score Indicator -->
+<div class="flex-shrink-0 relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary gauge-ring" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.9" stroke-dashoffset="27.6" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display text-display text-primary leading-tight">95</span>
+<span class="font-label-sm text-label-sm tracking-[0.2em] uppercase opacity-60">Score</span>
+</div>
+</div>
+<!-- Project Info & Breakdown -->
+<div class="flex-grow space-y-6">
+<div>
+<span class="inline-block px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full font-label-sm text-label-sm mb-2">CRITICAL PRIORITY</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Build Primary Health Centre</h3>
+<p class="text-on-surface-variant font-body-md mt-1">Ward 6, Central District Cluster</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+<div class="space-y-2">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span>Citizen Demand</span>
+<span>40/40</span>
+</div>
+<div class="h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span>Urgency</span>
+<span>18/20</span>
+</div>
+<div class="h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[90%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span>Infrastructure Gap</span>
+<span>20/20</span>
+</div>
+<div class="h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span>Demographic Need</span>
+<span>9/10</span>
+</div>
+<div class="h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[90%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Explanation -->
+<div class="mt-10 ai-gradient-border animate-pulse-soft">
+<div class="ai-inner-card p-6 flex gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div>
+<h4 class="font-title-lg text-title-lg text-secondary mb-1">AI Contextual Reasoning</h4>
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                                AI identified <span class="text-secondary font-bold">421 similar citizen requests</span> from Ward 6 over the last 60 days. Existing healthcare facilities are over <span class="text-secondary font-bold">6 km away</span>, affecting approximately <span class="text-secondary font-bold">18,000 residents</span>. High correlation found between transport unavailability and delayed medical intervention in recent reports.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial Sidebar Panel -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<div class="glass-card rounded-2xl p-6 space-y-6">
+<h4 class="font-title-lg text-title-lg text-on-surface border-b border-outline-variant/10 pb-4">Financial & Impact Matrix</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim">account_balance_wallet</span>
+<span class="text-on-surface-variant font-body-md">Est. Budget</span>
+</div>
+<span class="font-title-lg text-title-lg text-primary">₹48 Lakhs</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim">groups</span>
+<span class="text-on-surface-variant font-body-md">Expected Impact</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">18,000 people</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim">calendar_today</span>
+<span class="text-on-surface-variant font-body-md">Est. Completion</span>
+</div>
+<span class="font-title-lg text-title-lg text-on-surface">12 months</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error">report_problem</span>
+<span class="text-on-surface-variant font-body-md">Risk Level</span>
+</div>
+<span class="font-label-md text-label-md px-3 py-1 bg-tertiary-container/30 text-tertiary-fixed rounded-lg">Medium</span>
+</div>
+</div>
+<div class="flex flex-col gap-3 pt-4">
+<button class="w-full py-4 bg-primary-container text-on-primary-container font-title-lg text-title-lg rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:scale-[1.02] active:scale-95 transition-all">Approve Recommendation</button>
+<button class="w-full py-4 glass-card text-on-surface font-title-lg text-title-lg rounded-xl hover:bg-surface-bright active:scale-95 transition-all">Request Review</button>
+<button class="w-full py-4 text-error font-title-lg text-title-lg hover:bg-error/10 rounded-xl active:scale-95 transition-all">Reject Recommendation</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Section: Map & Timeline -->
+<div class="grid grid-cols-12 gap-gutter">
+<div class="col-span-12 lg:col-span-7 glass-card rounded-2xl p-6 h-[450px] relative group overflow-hidden">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-title-lg text-title-lg">Geospatial Hotspots - Ward 6</h4>
+<div class="flex gap-2">
+<button class="p-2 bg-surface-dim/50 rounded-lg hover:bg-surface-bright border border-outline-variant/10">
+<span class="material-symbols-outlined">layers</span>
+</button>
+<button class="p-2 bg-surface-dim/50 rounded-lg hover:bg-surface-bright border border-outline-variant/10">
+<span class="material-symbols-outlined">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Interactive Map Placeholder -->
+<div class="w-full h-full bg-surface-dim rounded-xl border border-outline-variant/10 overflow-hidden relative">
+<div class="absolute inset-0 z-0" data-alt="A futuristic dark-mode digital map interface of a dense urban municipal ward. The map features glowing indigo administrative boundaries, neon teal heatmap clusters indicating high demand density, and minimalist 3D building wireframes. Atmospheric digital UI elements like coordinates and data labels float subtly over the terrain." data-location="Ward 6 Municipal Zone" style="background-image: url('https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg')"></div>
+<!-- Heatmap Overlay Effect -->
+<div class="absolute top-1/3 left-1/4 w-32 h-32 bg-secondary/20 blur-[50px] rounded-full animate-pulse"></div>
+<div class="absolute bottom-1/4 right-1/3 w-48 h-48 bg-primary/20 blur-[60px] rounded-full animate-pulse-soft"></div>
+<!-- Map Controls -->
+<div class="absolute bottom-6 right-6 flex flex-col gap-2">
+<button class="p-3 bg-surface-container-high rounded-full shadow-lg border border-outline-variant/20"><span class="material-symbols-outlined">add</span></button>
+<button class="p-3 bg-surface-container-high rounded-full shadow-lg border border-outline-variant/20"><span class="material-symbols-outlined">remove</span></button>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-5 glass-card rounded-2xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-title-lg text-title-lg">Citizen Requests Over Time</h4>
+<span class="font-label-sm text-label-sm text-secondary">+24% vs Last Quarter</span>
+</div>
+<!-- Line Chart Visualization Placeholder -->
+<div class="flex-grow flex items-end gap-2 pb-4">
+<div class="flex-1 space-y-2 group">
+<div class="relative h-32 w-full flex items-end">
+<div class="w-full bg-primary/20 rounded-t h-[40%] group-hover:bg-primary/40 transition-all"></div>
+</div>
+<span class="block text-center font-label-sm text-label-sm opacity-50">Jan</span>
+</div>
+<div class="flex-1 space-y-2 group">
+<div class="relative h-32 w-full flex items-end">
+<div class="w-full bg-primary/20 rounded-t h-[65%] group-hover:bg-primary/40 transition-all"></div>
+</div>
+<span class="block text-center font-label-sm text-label-sm opacity-50">Feb</span>
+</div>
+<div class="flex-1 space-y-2 group">
+<div class="relative h-32 w-full flex items-end">
+<div class="w-full bg-primary/20 rounded-t h-[85%] group-hover:bg-primary/40 transition-all"></div>
+</div>
+<span class="block text-center font-label-sm text-label-sm opacity-50">Mar</span>
+</div>
+<div class="flex-1 space-y-2 group">
+<div class="relative h-32 w-full flex items-end">
+<div class="w-full bg-primary/20 rounded-t h-[45%] group-hover:bg-primary/40 transition-all"></div>
+</div>
+<span class="block text-center font-label-sm text-label-sm opacity-50">Apr</span>
+</div>
+<div class="flex-1 space-y-2 group">
+<div class="relative h-32 w-full flex items-end">
+<div class="w-full bg-primary/20 rounded-t h-[95%] group-hover:bg-primary/40 transition-all"></div>
+</div>
+<span class="block text-center font-label-sm text-label-sm opacity-50">May</span>
+</div>
+<div class="flex-1 space-y-2 group">
+<div class="relative h-32 w-full flex items-end">
+<div class="w-full bg-primary h-full rounded-t shadow-[0_0_15px_rgba(79,70,229,0.4)]"></div>
+</div>
+<span class="block text-center font-label-sm text-label-sm text-primary font-bold">Jun</span>
+</div>
+</div>
+<div class="bg-surface-dim/50 p-4 rounded-xl border border-outline-variant/10">
+<p class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">info</span>
+                        Unusual spike detected on May 28th following the regional flood warning.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Lower Section: Evidence Gallery -->
+<section class="space-y-6">
+<div class="flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md">Ground Evidence Gallery</h4>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline">View All 124 Attachments</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Image Evidence -->
+<div class="glass-card rounded-2xl overflow-hidden group cursor-pointer">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Clear daytime photography of an overcrowded public clinic waiting area in an urban setting. People are sitting in cramped plastic chairs, the walls are aging with some visible cracks, and there is a sense of urgency and fatigue. High-contrast lighting, sharp focus, professional documentary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOWY7mSP8oEkHPrhwXGqkWEkAK4-_EKpx5-W66JK4PFw6oHiFvsPZbtA7-Ky4tLS-4xxxTsjq_aOsVAE6k8Px3wDQVymv_k_V5K7Ov-vfSVJ7MpCtJ_Eh3RvH1-p15KgVwpge1jvMcaHQrlNt-HVhr7Ky5HPXN8MDfo4-aqz6Ar4ryBf2ti4O1NmpwIoWvtz5y268GLev0e3wPrSkB46eM6mJ34bgCQsXV0G4KwYZA13Q0lpRgMhvFonZXYYFhNgW8XLxvNJs4-t4"/>
+<div class="absolute top-2 left-2 bg-primary px-2 py-1 rounded text-[10px] font-bold text-on-primary">IMAGE</div>
+</div>
+<div class="p-4">
+<p class="font-label-md text-label-md text-on-surface mb-1">Clinic Overcrowding</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Submitted by A. Kumar • 2 days ago</p>
+</div>
+</div>
+<!-- Voice Recording -->
+<div class="glass-card rounded-2xl p-4 flex flex-col justify-between hover:bg-surface-bright group cursor-pointer border-l-4 border-l-secondary">
 <div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-primary p-2 bg-primary/10 rounded-lg">group</span>
-<span class="text-secondary font-label-md">+12%</span>
+<span class="material-symbols-outlined text-secondary text-4xl">mic</span>
+<div class="bg-secondary px-2 py-1 rounded text-[10px] font-bold text-on-secondary">VOICE</div>
 </div>
-<p class="font-label-md text-outline uppercase tracking-wider">Total Citizen Requests</p>
-<h3 class="text-headline-lg font-bold text-on-surface mt-1">18,426</h3>
+<div>
+<p class="font-label-md text-label-md text-on-surface mb-1">Ward 6 Resident Complaint</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Audio Transcribed (0:45s)</p>
 </div>
-<div class="glass-card p-6 rounded-xl border-l-4 border-l-tertiary">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-tertiary p-2 bg-tertiary/10 rounded-lg">recommend</span>
-<span class="text-tertiary font-label-md">Urgent</span>
+<div class="mt-4 flex items-center gap-2">
+<div class="h-1 flex-grow bg-surface-variant rounded-full relative">
+<div class="absolute left-0 top-0 h-full w-1/3 bg-secondary"></div>
 </div>
-<p class="font-label-md text-outline uppercase tracking-wider">Priority Recommendations</p>
-<h3 class="text-headline-lg font-bold text-on-surface mt-1">53</h3>
+<span class="text-[10px] font-label-sm">0:15 / 0:45</span>
 </div>
-<div class="glass-card p-6 rounded-xl">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-secondary p-2 bg-secondary/10 rounded-lg">domain</span>
 </div>
-<p class="font-label-md text-outline uppercase tracking-wider">Active Wards</p>
-<h3 class="text-headline-lg font-bold text-on-surface mt-1">18 <span class="text-title-lg text-outline font-normal">/ 20</span></h3>
+<!-- Scanned Letter -->
+<div class="glass-card rounded-2xl overflow-hidden group cursor-pointer">
+<div class="h-40 bg-surface-dim flex items-center justify-center p-6">
+<div class="w-full h-full bg-white/5 rounded border border-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-5xl">description</span>
 </div>
-<div class="glass-card p-6 rounded-xl">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-primary p-2 bg-primary/10 rounded-lg">timer</span>
+<div class="absolute top-2 left-2 bg-tertiary px-2 py-1 rounded text-[10px] font-bold text-on-tertiary">SCAN</div>
 </div>
-<p class="font-label-md text-outline uppercase tracking-wider">Avg Processing Time</p>
-<h3 class="text-headline-lg font-bold text-on-surface mt-1">2.4 <span class="text-title-lg text-outline font-normal">min</span></h3>
+<div class="p-4">
+<p class="font-label-md text-label-md text-on-surface mb-1">Community Petition</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Signed by 150+ residents</p>
+</div>
+</div>
+<!-- Video Evidence -->
+<div class="glass-card rounded-2xl overflow-hidden group cursor-pointer relative">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A wide shot of a dusty unpaved road in a residential municipal ward with children walking to school alongside heavy traffic. Bright morning sunlight, warm tones, high dynamic range cinematic look. A glowing play icon is superimposed in the center." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOKyPHuvPOD9Y5oYptF6BNbrjUV6QSwMWtH_QGUL4eLDTvW8qA0FXzFkpTVJMaxzvmOpxaFNJGvZZbrSVx_Z7JL2r2qEGSiMw9UCpTYFvDPNNnpMg262z7iXlWeI2oQFRtGSwUHZfxoWDAhkg6Je2gsqDPE2B6wxLzRomlB_fq5PQdBuzgvDTgYAlH18MzJvHhiC1-DTEcKnoAYFoXEKzz_2Oy63K_oKP5VSGtLXGRuidnVsD7qjPd7McC0R9zgq5YcwhP6rXNKfk"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl opacity-80">play_circle</span>
+</div>
+<div class="absolute top-2 left-2 bg-error px-2 py-1 rounded text-[10px] font-bold text-on-error">VIDEO</div>
+</div>
+<div class="p-4">
+<p class="font-label-md text-label-md text-on-surface mb-1">Access Route Audit</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Drone footage from Site A</p>
+</div>
 </div>
 </div>
 </section>
-<!-- Main Dashboard Layout -->
-<div class="grid grid-cols-1 lg:grid-cols-10 gap-gutter">
-<!-- Left Column (70%) -->
-<div class="lg:col-span-7 space-y-gutter">
-<!-- Demand Hotspots Section -->
-<div class="glass-card rounded-xl p-gutter relative overflow-hidden h-[500px] flex flex-col">
-<div class="flex justify-between items-center mb-6 z-10">
-<h4 class="font-title-lg text-on-surface flex items-center gap-2">
-<span class="material-symbols-outlined text-secondary">map</span>
-                            Demand Hotspots
-                        </h4>
-<div class="flex gap-2 bg-surface-container rounded-lg p-1">
-<button class="px-4 py-1 rounded-md text-label-md bg-primary text-on-primary">Ward View</button>
-<button class="px-4 py-1 rounded-md text-label-md text-outline hover:text-on-surface transition-colors">Block View</button>
+<!-- Related Citizen Requests Table -->
+<section class="glass-card rounded-2xl overflow-hidden">
+<div class="p-6 border-b border-outline-variant/10 flex justify-between items-center">
+<h4 class="font-title-lg text-title-lg">Recent Relevant Citizen Requests</h4>
+<div class="flex gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="bg-surface-dim border border-outline-variant/20 rounded-lg pl-10 pr-4 py-2 text-label-md focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all w-64" placeholder="Search requests..." type="text"/>
 </div>
+<button class="p-2 border border-outline-variant/20 rounded-lg hover:bg-surface-bright"><span class="material-symbols-outlined">filter_list</span></button>
 </div>
-<div class="flex-1 relative rounded-lg overflow-hidden bg-surface-container-low group">
-<div class="w-full h-full bg-cover bg-center grayscale brightness-50 contrast-125 opacity-60" data-location="New Delhi India" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARs5Ni-DLSx44Jz5OyDtTNPg7-mJ1ew_SupqcPnmjmkEJWj5XS8rkgSMl7QfMYhQ_rLGRT7juNs_vveSh1qRYR02I2AxUVBv0-FHl72LCuKuuBXb11Wm6p-q_yleAvHDju4FRwazVJ6sp4nG8MLLtrstXaEI6AaO4vSpGF4M2Ud64Sj3N6BSeSIs7Nnj0AGStt9GpqKYGVyQzNodx-vHpQIA-nHOdN717UxuJetEVtxvOWXrgrO2-ADaTgA1LfUrZIVWjsYBqh_XY')"></div>
-<!-- Heatmap Overlay (Faked with CSS gradients for UI demo) -->
-<div class="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(circle_at_30%_40%,#ef4444_0%,transparent_20%),radial-gradient(circle_at_70%_60%,#f59e0b_0%,transparent_25%),radial-gradient(circle_at_20%_80%,#10b981_0%,transparent_15%)]"></div>
-<!-- Zoom Controls -->
-<div class="absolute right-4 bottom-4 flex flex-col gap-2">
-<button class="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary/20"><span class="material-symbols-outlined">add</span></button>
-<button class="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary/20"><span class="material-symbols-outlined">remove</span></button>
-</div>
-<!-- Map Legend -->
-<div class="absolute left-4 bottom-4 glass-card px-4 py-3 rounded-lg flex flex-col gap-2">
-<div class="flex items-center gap-3 text-label-sm">
-<span class="w-3 h-3 rounded-full bg-error"></span> Critical Demand
-                            </div>
-<div class="flex items-center gap-3 text-label-sm">
-<span class="w-3 h-3 rounded-full bg-tertiary"></span> Moderate
-                            </div>
-<div class="flex items-center gap-3 text-label-sm">
-<span class="w-3 h-3 rounded-full bg-secondary"></span> Optimal
-                            </div>
-</div>
-</div>
-</div>
-<!-- Recent AI Insights -->
-<div>
-<h4 class="font-title-lg text-on-surface mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-primary">auto_awesome</span>
-                        Recent AI Insights
-                    </h4>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<!-- Insight Card 1 -->
-<div class="ai-glow-border p-[1px]">
-<div class="glass-card h-full p-6 rounded-xl flex flex-col">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
-<span class="font-label-sm text-secondary bg-secondary/10 px-2 py-0.5 rounded">96% Conf.</span>
-</div>
-<h5 class="font-body-lg font-bold text-on-surface mb-2">Water shortage increasing in Ward 6</h5>
-<div class="mt-auto">
-<p class="text-label-md text-outline">143 Active Requests</p>
-<div class="w-full bg-surface-container-high h-1 rounded-full mt-2">
-<div class="bg-primary h-1 rounded-full" style="width: 85%"></div>
-</div>
-</div>
-</div>
-</div>
-<!-- Insight Card 2 -->
-<div class="glass-card p-6 rounded-xl flex flex-col">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">school</span>
-<span class="font-label-sm text-secondary bg-secondary/10 px-2 py-0.5 rounded">91% Conf.</span>
-</div>
-<h5 class="font-body-lg font-bold text-on-surface mb-2">School infrastructure lacking in Ward 2</h5>
-<div class="mt-auto">
-<p class="text-label-md text-outline">87 Active Requests</p>
-<div class="w-full bg-surface-container-high h-1 rounded-full mt-2">
-<div class="bg-primary h-1 rounded-full" style="width: 60%"></div>
-</div>
-</div>
-</div>
-<!-- Insight Card 3 -->
-<div class="glass-card p-6 rounded-xl flex flex-col">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">construction</span>
-<span class="font-label-sm text-secondary bg-secondary/10 px-2 py-0.5 rounded">89% Conf.</span>
-</div>
-<h5 class="font-body-lg font-bold text-on-surface mb-2">Road maintenance emerging in Ward 9</h5>
-<div class="mt-auto">
-<p class="text-label-md text-outline">61 Active Requests</p>
-<div class="w-full bg-surface-container-high h-1 rounded-full mt-2">
-<div class="bg-primary h-1 rounded-full" style="width: 45%"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Column (30%) -->
-<div class="lg:col-span-3 space-y-gutter">
-<!-- Top Priority Projects -->
-<div class="glass-card rounded-xl p-6">
-<h4 class="font-title-lg text-on-surface mb-6 flex items-center justify-between">
-                        Top Projects
-                        <span class="font-label-sm text-primary uppercase tracking-widest">Ranked by Impact</span>
-</h4>
-<div class="space-y-4">
-<div class="bg-surface-container-low p-4 rounded-xl border border-white/5 hover:border-primary/30 transition-all cursor-pointer">
-<div class="flex justify-between items-start mb-3">
-<div class="bg-primary/20 text-primary w-8 h-8 rounded-lg flex items-center justify-center font-bold">#1</div>
-<div class="text-right">
-<span class="text-secondary font-bold text-headline-md leading-none">95</span>
-<p class="text-[10px] text-outline uppercase tracking-tighter">Impact Score</p>
-</div>
-</div>
-<h6 class="font-body-md font-bold text-on-surface mb-2">Build Primary Health Centre</h6>
-<div class="grid grid-cols-2 gap-2 text-[11px] text-outline">
-<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span> 421 Requests</div>
-<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">payments</span> ₹48L Est.</div>
-</div>
-</div>
-<div class="bg-surface-container-low p-4 rounded-xl border border-white/5 opacity-80">
-<div class="flex justify-between items-start mb-3">
-<div class="bg-surface-container-high text-outline w-8 h-8 rounded-lg flex items-center justify-center font-bold">#2</div>
-<div class="text-right">
-<span class="text-secondary/70 font-bold text-headline-md leading-none">88</span>
-<p class="text-[10px] text-outline uppercase tracking-tighter">Impact Score</p>
-</div>
-</div>
-<h6 class="font-body-md font-bold text-on-surface mb-2">Solar Street Lighting Grid</h6>
-<div class="grid grid-cols-2 gap-2 text-[11px] text-outline">
-<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span> 312 Requests</div>
-<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">payments</span> ₹12L Est.</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Review Queue -->
-<div class="glass-card rounded-xl overflow-hidden">
-<div class="p-6 border-b border-white/5">
-<h4 class="font-title-lg text-on-surface">Review Queue</h4>
 </div>
 <div class="overflow-x-auto">
-<table class="w-full text-left">
-<thead class="bg-surface-container-high text-label-sm text-outline uppercase tracking-wider">
-<tr>
-<th class="px-6 py-3">Citizen</th>
-<th class="px-6 py-3">Theme</th>
-<th class="px-6 py-3">Actions</th>
+<table class="w-full text-left font-body-md">
+<thead>
+<tr class="bg-surface-container-high/50 text-on-surface-variant font-label-md text-label-md">
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Request ID</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Category</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Ward</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Sentiment</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 font-medium uppercase tracking-wider text-right">Action</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-white/5">
-<tr class="hover:bg-white/5 transition-colors">
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">#PP-8921</td>
+<td class="px-6 py-4">Healthcare Access</td>
+<td class="px-6 py-4">Ward 6</td>
 <td class="px-6 py-4">
-<p class="font-body-md text-on-surface">A. Sharma</p>
-<p class="text-[10px] text-outline">Ward 6</p>
+<span class="px-2 py-1 bg-error/10 text-error text-[10px] rounded-full border border-error/20">Critical/Angry</span>
 </td>
-<td class="px-6 py-4">
-<span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded">Water</span>
-</td>
-<td class="px-6 py-4">
-<div class="flex gap-2">
-<button class="material-symbols-outlined text-secondary text-[20px] hover:scale-110 transition-transform">check_circle</button>
-<button class="material-symbols-outlined text-outline text-[20px] hover:text-on-surface transition-colors">edit</button>
-</div>
+<td class="px-6 py-4 text-on-surface-variant">Jun 12, 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-secondary hover:underline text-label-md">View AI Summary</button>
 </td>
 </tr>
-<tr class="hover:bg-white/5 transition-colors">
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">#PP-8845</td>
+<td class="px-6 py-4">Sanitation</td>
+<td class="px-6 py-4">Ward 6</td>
 <td class="px-6 py-4">
-<p class="font-body-md text-on-surface">R. Khan</p>
-<p class="text-[10px] text-outline">Ward 2</p>
+<span class="px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] rounded-full border border-tertiary/20">Concerned</span>
 </td>
-<td class="px-6 py-4">
-<span class="text-[10px] bg-tertiary/10 text-tertiary px-2 py-1 rounded">Health</span>
-</td>
-<td class="px-6 py-4">
-<div class="flex gap-2">
-<button class="material-symbols-outlined text-secondary text-[20px] hover:scale-110 transition-transform">check_circle</button>
-<button class="material-symbols-outlined text-outline text-[20px] hover:text-on-surface transition-colors">edit</button>
-</div>
+<td class="px-6 py-4 text-on-surface-variant">Jun 11, 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-secondary hover:underline text-label-md">View AI Summary</button>
 </td>
 </tr>
-<tr class="hover:bg-white/5 transition-colors">
+<tr class="hover:bg-surface-variant/10 transition-colors">
+<td class="px-6 py-4 font-mono text-primary">#PP-8712</td>
+<td class="px-6 py-4">Healthcare Access</td>
+<td class="px-6 py-4">Ward 6</td>
 <td class="px-6 py-4">
-<p class="font-body-md text-on-surface">P. Varma</p>
-<p class="text-[10px] text-outline">Ward 11</p>
+<span class="px-2 py-1 bg-error/10 text-error text-[10px] rounded-full border border-error/20">Emergency</span>
 </td>
-<td class="px-6 py-4">
-<span class="text-[10px] bg-secondary/10 text-secondary px-2 py-1 rounded">Roads</span>
-</td>
-<td class="px-6 py-4">
-<div class="flex gap-2">
-<button class="material-symbols-outlined text-secondary text-[20px] hover:scale-110 transition-transform">check_circle</button>
-<button class="material-symbols-outlined text-outline text-[20px] hover:text-on-surface transition-colors">edit</button>
-</div>
+<td class="px-6 py-4 text-on-surface-variant">Jun 10, 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-secondary hover:underline text-label-md">View AI Summary</button>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-</div>
-</div>
-<!-- Bottom Analytics -->
-<section class="mt-gutter">
-<h4 class="font-title-lg text-on-surface mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-secondary">trending_up</span>
-                Deep Analytics
-            </h4>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<div class="glass-card p-6 rounded-xl h-64 flex flex-col">
-<p class="font-label-md text-outline uppercase tracking-wider mb-4">Citizen Requests over Time</p>
-<div class="flex-1 flex items-end gap-2 px-2">
-<!-- Simplified Bar Visuals -->
-<div class="flex-1 bg-primary/20 rounded-t-sm h-[30%]"></div>
-<div class="flex-1 bg-primary/30 rounded-t-sm h-[45%]"></div>
-<div class="flex-1 bg-primary/40 rounded-t-sm h-[60%]"></div>
-<div class="flex-1 bg-primary/60 rounded-t-sm h-[80%]"></div>
-<div class="flex-1 bg-primary rounded-t-sm h-[95%] shadow-[0_0_15px_rgba(195,192,255,0.3)]"></div>
-</div>
-</div>
-<div class="glass-card p-6 rounded-xl h-64 flex flex-col">
-<p class="font-label-md text-outline uppercase tracking-wider mb-4">Top Requested Categories</p>
-<div class="space-y-4 pt-2">
-<div class="space-y-1">
-<div class="flex justify-between text-label-sm"><span class="text-on-surface">Water Supply</span> <span class="text-primary">42%</span></div>
-<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden"><div class="bg-primary h-full" style="width: 42%"></div></div>
-</div>
-<div class="space-y-1">
-<div class="flex justify-between text-label-sm"><span class="text-on-surface">Sanitation</span> <span class="text-secondary">28%</span></div>
-<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden"><div class="bg-secondary h-full" style="width: 28%"></div></div>
-</div>
-<div class="space-y-1">
-<div class="flex justify-between text-label-sm"><span class="text-on-surface">Electricity</span> <span class="text-tertiary">15%</span></div>
-<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden"><div class="bg-tertiary h-full" style="width: 15%"></div></div>
-</div>
-</div>
-</div>
-<div class="glass-card p-6 rounded-xl h-64 flex flex-col">
-<p class="font-label-md text-outline uppercase tracking-wider mb-4">Distribution by Ward</p>
-<div class="flex-1 flex items-center justify-center">
-<div class="relative w-32 h-32 rounded-full border-[12px] border-primary/20 flex items-center justify-center">
-<div class="absolute inset-0 border-[12px] border-primary border-t-transparent border-r-transparent rounded-full -rotate-45"></div>
-<div class="text-center">
-<p class="text-headline-md font-bold text-on-surface">6</p>
-<p class="text-[10px] text-outline">Lead Ward</p>
-</div>
-</div>
-</div>
+<div class="p-4 bg-surface-dim/30 flex justify-between items-center border-t border-outline-variant/10">
+<span class="text-label-sm text-on-surface-variant">Showing 3 of 421 requests</span>
+<div class="flex gap-2">
+<button class="p-1 px-3 glass-card rounded-md text-label-sm disabled:opacity-50" disabled="">Previous</button>
+<button class="p-1 px-3 glass-card rounded-md text-label-sm">Next</button>
 </div>
 </div>
 </section>
 </main>
-<!-- Footer -->
-<footer class="lg:ml-64 w-auto py-base px-margin-desktop flex flex-col md:flex-row justify-between items-center mt-auto bg-surface-container-lowest border-t border-white/5">
-<p class="font-label-sm text-outline">© 2024 People's Priorities | AI Governance Suite</p>
-<div class="flex gap-8 mt-4 md:mt-0">
-<a class="font-label-sm text-outline hover:text-on-surface transition-opacity hover:opacity-80" href="#">Data Privacy</a>
-<a class="font-label-sm text-outline hover:text-on-surface transition-opacity hover:opacity-80" href="#">Audit Log</a>
-<a class="font-label-sm text-outline hover:text-on-surface transition-opacity hover:opacity-80" href="#">System Status</a>
-</div>
-</footer>
 <!-- Floating AI Assistant -->
-<div class="fixed bottom-8 right-8 z-[100] group">
-<!-- Floating Menu -->
-<div class="absolute bottom-16 right-0 w-64 glass-card p-4 rounded-xl opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-2xl">
-<p class="font-label-sm text-primary mb-3">Ask Intelligence</p>
-<div class="space-y-2">
-<button class="w-full text-left p-2 rounded-lg bg-surface-container-high hover:bg-primary/20 text-label-sm text-on-surface transition-colors">"Why is Ward 6 ranked highest?"</button>
-<button class="w-full text-left p-2 rounded-lg bg-surface-container-high hover:bg-primary/20 text-label-sm text-on-surface transition-colors">"Summarize Ward 2 complaints."</button>
-<button class="w-full text-left p-2 rounded-lg bg-surface-container-high hover:bg-primary/20 text-label-sm text-on-surface transition-colors">"Estimate cost for Ward 9 road repair."</button>
+<div class="fixed bottom-8 right-8 z-[100] flex flex-col items-end gap-4 pointer-events-none">
+<!-- Prompts bubble (visible on hover) -->
+<div class="flex flex-col items-end gap-2 mb-2 pointer-events-auto transition-all duration-300 transform translate-y-4 opacity-0 hover:opacity-100 group">
+<button class="px-4 py-2 bg-surface-container-high/90 backdrop-blur-md border border-primary/20 rounded-full text-label-md hover:bg-primary-container text-on-surface whitespace-nowrap shadow-xl">"Why is this ranked first?"</button>
+<button class="px-4 py-2 bg-surface-container-high/90 backdrop-blur-md border border-primary/20 rounded-full text-label-md hover:bg-primary-container text-on-surface whitespace-nowrap shadow-xl">"Suggest alternatives"</button>
+<button class="px-4 py-2 bg-surface-container-high/90 backdrop-blur-md border border-primary/20 rounded-full text-label-md hover:bg-primary-container text-on-surface whitespace-nowrap shadow-xl">"What happens if budget changes?"</button>
 </div>
-</div>
-<!-- FAB -->
-<button class="w-14 h-14 rounded-full bg-primary-container text-on-primary shadow-xl shadow-primary/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
-<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<!-- Main FAB -->
+<button class="pointer-events-auto w-16 h-16 bg-primary-container rounded-full shadow-[0_8px_32px_rgba(79,70,229,0.5)] flex items-center justify-center group active:scale-90 transition-all" id="ai-fab">
+<div class="absolute inset-0 bg-secondary rounded-full animate-ping opacity-20 group-hover:animate-none"></div>
+<span class="material-symbols-outlined text-white text-3xl group-hover:rotate-12 transition-transform" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
 </button>
 </div>
 <script>
-        // Micro-interactions and interactive map behaviors
-        document.addEventListener('DOMContentLoaded', () => {
-            // Placeholder for interactions
-            console.log("People's Priorities Command Center Initialized.");
-            
-            // Animation for cards on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('translate-y-0', 'opacity-100');
-                        entry.target.classList.remove('translate-y-4', 'opacity-0');
-                    }
-                });
-            }, { threshold: 0.1 });
+        // Simple Interaction logic
+        const fab = document.getElementById('ai-fab');
+        const prompts = fab.previousElementSibling;
 
-            document.querySelectorAll('.glass-card').forEach(card => {
-                card.classList.add('transition-all', 'duration-700', 'translate-y-4', 'opacity-0');
-                observer.observe(card);
-            });
+        fab.addEventListener('mouseenter', () => {
+            prompts.classList.remove('translate-y-4', 'opacity-0');
+            prompts.classList.add('translate-y-0', 'opacity-100');
         });
+
+        // Hide when clicking anywhere else (demo behavior)
+        document.addEventListener('click', (e) => {
+            if (!fab.contains(e.target) && !prompts.contains(e.target)) {
+                prompts.classList.add('translate-y-4', 'opacity-0');
+                prompts.classList.remove('translate-y-0', 'opacity-100');
+            }
+        });
+
+        // Circle Gauge Animation simulation
+        setTimeout(() => {
+            const gauge = document.querySelector('.gauge-ring');
+            if (gauge) {
+                // Score 95 -> stroke-dashoffset = circumference * (1 - score/100)
+                // circumference = 2 * PI * 88 ~= 552.9
+                // 95/100 -> 552.9 * 0.05 = 27.6
+                gauge.style.strokeDashoffset = '27.6';
+            }
+        }, 100);
     </script>
 </body></html>
