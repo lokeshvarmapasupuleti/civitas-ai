@@ -10,12 +10,16 @@ app = FastAPI(
 
 # Configure CORS to allow access from the frontend local dev environments
 origins = [
+    # Local development
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3002",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:3001",
     "http://127.0.0.1:3002",
+
+    # Production frontend
+    "https://peoples-priorities-kjq6.onrender.com",
 ]
 
 app.add_middleware(
