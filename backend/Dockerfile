@@ -8,14 +8,14 @@ WORKDIR /app
 
 RUN addgroup --system civitas && adduser --system --ingroup civitas civitas
 
-COPY requirements.txt ./requirements.txt
+COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-COPY alembic.ini ./alembic.ini
+COPY alembic.ini .
 COPY alembic ./alembic
 COPY app ./app
-COPY seed_data.py ./seed_data.py
+COPY seed_data.py .
 COPY scripts/start.sh ./scripts/start.sh
 
 RUN mkdir -p /app/static/uploads && \
