@@ -8,15 +8,15 @@ WORKDIR /app
 
 RUN addgroup --system civitas && adduser --system --ingroup civitas civitas
 
-COPY backend/requirements.txt ./requirements.txt
+COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-COPY backend/alembic.ini ./alembic.ini
-COPY backend/alembic ./alembic
-COPY backend/app ./app
-COPY backend/seed_data.py ./seed_data.py
-COPY backend/scripts/start.sh ./scripts/start.sh
+COPY alembic.ini ./alembic.ini
+COPY alembic ./alembic
+COPY app ./app
+COPY seed_data.py ./seed_data.py
+COPY scripts/start.sh ./scripts/start.sh
 
 RUN mkdir -p /app/static/uploads && \
     chmod +x /app/scripts/start.sh && \
