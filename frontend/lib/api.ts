@@ -13,11 +13,41 @@ export interface Submission {
   image_path?: string;
 }
 
+export interface PriorityBreakdown {
+  citizen_frequency: number;
+  urgency: number;
+  population_affected: number;
+  infrastructure_gap: number;
+  cost_penalty: number;
+  strategic_importance: number;
+}
+
+export interface PriorityResponse {
+  priority_score: number;
+  breakdown: PriorityBreakdown;
+  reason: string;
+  confidence: number;
+}
+
+export interface PipelineResponse {
+  submission_id: string;
+  detected_language: string;
+  english_translation: string;
+  category: string;
+  sentiment: string;
+  urgency_score: number;
+  cluster_name: string;
+  cluster_id?: number | null;
+  summary: string;
+  priority: PriorityResponse;
+  metadata: Record<string, unknown>;
+}
+
 export interface AssistantResponse {
   answer: string;
   query_type: string;
   confidence: number;
-  data: any;
+  data: Record<string, unknown> | unknown[] | null;
   suggested_followups: string[];
 }
 
@@ -68,6 +98,14 @@ async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
     headers["Content-Type"] = "application/json";
   }
 
+  // Inject Bearer Authorization token if present in local storage
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("civitas_auth_token");
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+  }
+
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -77,6 +115,14 @@ async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
   });
 
   if (!response.ok) {
+    if (response.status === 401) {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("civitas_auth_logged_in", "false");
+        localStorage.removeItem("civitas_auth_token");
+        window.dispatchEvent(new Event("civitas_auth_change"));
+        window.location.reload();
+      }
+    }
     const errorText = await response.text();
     throw new Error(`API Error: ${response.status} - ${errorText || response.statusText}`);
   }
@@ -127,9 +173,9 @@ export const api = {
     return apiRequest<AnalyticsData>("/analytics");
   },
 
-  processAISubmission: async (submissionId: string): Promise<any> => {
+  processAISubmission: async (submissionId: string): Promise<PipelineResponse> => {
     const encodedId = encodeURIComponent(submissionId);
-    return apiRequest<any>(`/ai/process/${encodedId}`, {
+    return apiRequest<PipelineResponse>(`/ai/process/${encodedId}`, {
       method: "POST",
     });
   },

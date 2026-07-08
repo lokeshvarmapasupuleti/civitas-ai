@@ -1,11 +1,12 @@
 import logging
-from app.ai_pipeline.providers import BaseLLMProvider, MockLLMProvider
+from app.providers.base import BaseAIProvider
+from app.providers.factory import AIProviderFactory
 
 logger = logging.getLogger("ai_pipeline.categorization")
 
 class Categorizer:
-    def __init__(self, provider: BaseLLMProvider = None):
-        self.provider = provider or MockLLMProvider()
+    def __init__(self, provider: BaseAIProvider = None):
+        self.provider = provider or AIProviderFactory.get_provider()
         
     def categorize(self, text: str) -> str:
         logger.info("Categorization Stage Started...")

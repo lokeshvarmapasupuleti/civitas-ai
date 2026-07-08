@@ -4,11 +4,15 @@ from typing import List
 from app.database import get_db
 from app import crud
 from app.schemas.recommendations import RecommendationResponse
+from app.services.auth import PermissionChecker
 
 router = APIRouter()
 
 @router.get("", response_model=List[RecommendationResponse])
-def get_recommendations(db: Session = Depends(get_db)):
+def get_recommendations(
+    db: Session = Depends(get_db),
+    current_user = Depends(PermissionChecker("view_analytics"))
+):
     db_recs = crud.get_recommendations(db)
     return [
         RecommendationResponse(

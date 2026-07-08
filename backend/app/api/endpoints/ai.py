@@ -4,11 +4,16 @@ from app.database import get_db
 from app import models
 from app.schemas.ai import PipelineResponse, PriorityResponse, PriorityBreakdown
 from app.ai_pipeline import AIPipeline
+from app.services.auth import PermissionChecker
 
 router = APIRouter()
 
 @router.post("/process/{submission_id}", response_model=PipelineResponse)
-def process_submission(submission_id: str, db: Session = Depends(get_db)):
+def process_submission(
+    submission_id: str, 
+    db: Session = Depends(get_db),
+    current_user = Depends(PermissionChecker("view_ward_grievances"))
+):
     # 1. Load the submission
     submission = db.query(models.CitizenSubmission).filter(models.CitizenSubmission.id == submission_id).first()
     if not submission:

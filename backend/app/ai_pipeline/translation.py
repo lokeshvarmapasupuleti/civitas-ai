@@ -1,11 +1,12 @@
 import logging
-from app.ai_pipeline.providers import BaseTranslationProvider, MockTranslationProvider
+from app.providers.base import BaseAIProvider
+from app.providers.factory import AIProviderFactory
 
 logger = logging.getLogger("ai_pipeline.translation")
 
 class Translator:
-    def __init__(self, provider: BaseTranslationProvider = None):
-        self.provider = provider or MockTranslationProvider()
+    def __init__(self, provider: BaseAIProvider = None):
+        self.provider = provider or AIProviderFactory.get_provider()
         
     def translate(self, text: str, source_lang: str) -> str:
         logger.info(f"Translation Stage Started (Source Language: {source_lang})...")

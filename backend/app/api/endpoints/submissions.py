@@ -7,11 +7,17 @@ from app.database import get_db
 from app import crud
 from app.schemas.submissions import SubmissionCreate, SubmissionResponse
 from app.services.multimodal import STTService, OCRService
+from app.services.auth import PermissionChecker
 
 router = APIRouter()
 
 @router.get("", response_model=List[SubmissionResponse])
-def get_submissions(category: str = None, ward: str = None, db: Session = Depends(get_db)):
+def get_submissions(
+    category: str = None, 
+    ward: str = None, 
+    db: Session = Depends(get_db),
+    current_user = Depends(PermissionChecker("view_own_grievances"))
+):
     db_subs = crud.get_submissions(db, category=category, ward_name=ward)
     
     return [
@@ -38,7 +44,8 @@ async def submit_request(
     reporter_name: Optional[str] = Form(None),
     audio_file: Optional[UploadFile] = File(None),
     image_file: Optional[UploadFile] = File(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user = Depends(PermissionChecker("submit_grievance"))
 ):
     audio_path = None
     image_path = None

@@ -2,19 +2,20 @@ import logging
 from sqlalchemy.orm import Session
 from typing import Optional
 from app import models
-from app.ai_pipeline.providers import BaseEmbeddingsProvider, MockEmbeddingsProvider
+from app.providers.base import BaseAIProvider
+from app.providers.factory import AIProviderFactory
 
 logger = logging.getLogger("ai_pipeline.clustering")
 
 class ClusteringService:
-    def __init__(self, embeddings_provider: BaseEmbeddingsProvider = None):
-        self.embeddings_provider = embeddings_provider or MockEmbeddingsProvider()
+    def __init__(self, provider: BaseAIProvider = None):
+        self.provider = provider or AIProviderFactory.get_provider()
         
     def assign_cluster(self, db: Session, text: str, category: str, ward_name: str) -> models.AICluster:
         logger.info(f"Clustering Stage Started (Ward: {ward_name}, Category: {category})...")
         
         # 1. Generate text embedding (ready for future sentence embedding similarity / pgvector)
-        embedding = self.embeddings_provider.get_embeddings(text)
+        embedding = self.provider.get_embedding(text)
         logger.info(f"Generated text embedding vector (length: {len(embedding)}) for similarity calculations.")
         
         # 2. Check for matches in database

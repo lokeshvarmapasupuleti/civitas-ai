@@ -1,5 +1,5 @@
 ---
-name: People's Priorities
+name: Civitas AI
 colors:
   surface: '#051424'
   surface-dim: '#051424'

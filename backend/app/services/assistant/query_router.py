@@ -1,7 +1,7 @@
 import logging
 import re
 import time
-from typing import Dict, Any, Tuple, Optional
+from typing import Dict, Any, Tuple
 from sqlalchemy.orm import Session
 from app.services.assistant import sql_queries
 

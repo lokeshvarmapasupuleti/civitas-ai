@@ -3,7 +3,7 @@ from typing import List, Optional, Dict, Any
 from sqlalchemy import String, Text, ForeignKey, Integer, Float, DateTime
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.database import Base
+from app.database.base_class import Base
 
 class Ward(Base):
     __tablename__ = "wards"
@@ -99,3 +99,80 @@ class AICluster(Base):
 
     # Relationships
     analyses: Mapped[List["AIAnalysis"]] = relationship(back_populates="cluster")
+
+
+from sqlalchemy import Boolean, Table, Column
+
+# Association table for Role-Permission mapping
+role_permissions = Table(
+    "role_permissions",
+    Base.metadata,
+    Column("role_id", Integer, ForeignKey("roles.id"), primary_key=True),
+    Column("permission_id", Integer, ForeignKey("permissions.id"), primary_key=True)
+)
+
+class Permission(Base):
+    __tablename__ = "permissions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), unique=True, index=True)
+    roles: Mapped[List["Role"]] = relationship("Role", secondary=role_permissions, back_populates="permissions")
+
+class Role(Base):
+    __tablename__ = "roles"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), unique=True, index=True)
+    permissions: Mapped[List["Permission"]] = relationship("Permission", secondary=role_permissions, back_populates="roles")
+    users: Mapped[List["User"]] = relationship("User", back_populates="role")
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String(100), unique=True, index=True)
+    email: Mapped[str] = mapped_column(String(100), unique=True, index=True)
+    hashed_password: Mapped[str] = mapped_column(String(255))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    failed_login_attempts: Mapped[int] = mapped_column(Integer, default=0)
+    lockout_until: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    role_id: Mapped[int] = mapped_column(ForeignKey("roles.id"))
+    
+    # Relationships
+    role: Mapped["Role"] = relationship("Role", back_populates="users")
+    sessions: Mapped[List["UserSession"]] = relationship("UserSession", back_populates="user", cascade="all, delete-orphan")
+    login_histories: Mapped[List["LoginHistory"]] = relationship("LoginHistory", back_populates="user", cascade="all, delete-orphan")
+
+class UserSession(Base):
+    __tablename__ = "user_sessions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    refresh_token: Mapped[str] = mapped_column(String(500), unique=True)
+    is_revoked: Mapped[bool] = mapped_column(Boolean, default=False)
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    user: Mapped["User"] = relationship("User", back_populates="sessions")
+
+class LoginHistory(Base):
+    __tablename__ = "login_history"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    ip_address: Mapped[str] = mapped_column(String(50))
+    user_agent: Mapped[str] = mapped_column(String(255))
+    timestamp: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    status: Mapped[str] = mapped_column(String(50))
+    
+    # Relationships
+    user: Mapped["User"] = relationship("User", back_populates="login_histories")
+
+class TokenBlacklist(Base):
+    __tablename__ = "token_blacklist"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    jti: Mapped[str] = mapped_column(String(100), unique=True, index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+

@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.router import api_router
 
 app = FastAPI(
-    title="People's Priorities API",
-    description="Backend API for citizen development requests, AI recommendations, and geospatial analytics.",
+    title="Civitas AI API",
+    description="AI Governance Intelligence Platform",
     version="1.0.0",
 )
 
@@ -19,7 +19,7 @@ origins = [
     "http://127.0.0.1:3002",
 
     # Production frontend
-    "https://peoples-priorities-kjq6.onrender.com",
+    "https://civitas-ai-kjq6.onrender.com",
 ]
 
 app.add_middleware(
@@ -30,6 +30,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from app.services.monitoring import MonitoringMiddleware
+app.add_middleware(MonitoringMiddleware)
+
 from fastapi.staticfiles import StaticFiles
 import os
 
@@ -39,3 +42,17 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include unified API router
 app.include_router(api_router)
+
+@app.on_event("startup")
+def on_startup():
+    from app.database import Base, engine, SessionLocal
+    from app.services.auth import AuthService
+    # Create all tables if not exist
+    Base.metadata.create_all(bind=engine)
+    # Seed permissions, roles, and default users
+    db = SessionLocal()
+    try:
+        AuthService.seed_roles_and_permissions(db)
+    finally:
+        db.close()
+

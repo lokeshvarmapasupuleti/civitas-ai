@@ -1,6 +1,6 @@
-# People's Priorities
+# Civitas AI
 
-People's Priorities is a data-driven legislative decision-making platform that maps citizen development requests to actionable, AI-powered project recommendations.
+Civitas AI is an AI Governance Intelligence Platform that maps citizen development requests to actionable, AI-powered project recommendations.
 
 ---
 

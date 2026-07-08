@@ -2,7 +2,7 @@ import logging
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 from datetime import datetime
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 from app import models
 
 logger = logging.getLogger("assistant.sql_queries")

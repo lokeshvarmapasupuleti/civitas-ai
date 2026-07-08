@@ -5,13 +5,14 @@ from typing import Dict, Any
 
 from app.services.assistant.query_router import QueryRouter
 from app.services.assistant.response_formatter import ResponseFormatter
-from app.services.assistant.providers import BaseLLMAssistant, MockLLMAssistant
+from app.providers.base import BaseAIProvider
+from app.providers.factory import AIProviderFactory
 
 logger = logging.getLogger("assistant.orchestrator")
 
 class AssistantService:
-    def __init__(self, llm_provider: BaseLLMAssistant = None):
-        self.llm_provider = llm_provider or MockLLMAssistant()
+    def __init__(self, llm_provider: BaseAIProvider = None):
+        self.llm_provider = llm_provider or AIProviderFactory.get_provider()
         self.router = QueryRouter()
         self.formatter = ResponseFormatter()
 

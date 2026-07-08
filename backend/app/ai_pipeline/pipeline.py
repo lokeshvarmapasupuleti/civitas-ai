@@ -1,41 +1,31 @@
 import logging
 from sqlalchemy.orm import Session
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from app import models
-from app.ai_pipeline.providers import (
-    BaseTranslationProvider, BaseLLMProvider, BaseEmbeddingsProvider,
-    MockTranslationProvider, MockLLMProvider, MockEmbeddingsProvider
-)
-from app.ai_pipeline.language_detection import LanguageDetector
-from app.ai_pipeline.translation import Translator
-from app.ai_pipeline.categorization import Categorizer
-from app.ai_pipeline.sentiment import SentimentAnalyzer
+from app.providers.base import BaseAIProvider
+from app.providers.factory import AIProviderFactory
 from app.ai_pipeline.clustering import ClusteringService
 from app.ai_pipeline.priority_engine import PriorityEngine
-from app.ai_pipeline.summarizer import Summarizer
+
+# Import the new modular AI services orchestrator
+from app.services.ai_pipeline.pipeline import AIPipelineOrchestrator
 
 logger = logging.getLogger("ai_pipeline.orchestrator")
 
 class AIPipeline:
     def __init__(
         self,
-        translation_provider: BaseTranslationProvider = None,
-        llm_provider: BaseLLMProvider = None,
-        embeddings_provider: BaseEmbeddingsProvider = None
+        provider: Optional[BaseAIProvider] = None
     ):
-        self.translation_provider = translation_provider or MockTranslationProvider()
-        self.llm_provider = llm_provider or MockLLMProvider()
-        self.embeddings_provider = embeddings_provider or MockEmbeddingsProvider()
+        self.provider = provider or AIProviderFactory.get_provider()
 
-        # Initialize stages with providers
-        self.language_detector = LanguageDetector()
-        self.translator = Translator(self.translation_provider)
-        self.categorizer = Categorizer(self.llm_provider)
-        self.sentiment_analyzer = SentimentAnalyzer(self.llm_provider)
-        self.clustering_service = ClusteringService(self.embeddings_provider)
+        # Keep legacy clustering and priority services
+        self.clustering_service = ClusteringService(provider=self.provider)
         self.priority_engine = PriorityEngine()
-        self.summarizer = Summarizer(self.llm_provider)
+
+        # Initialize the new production-grade orchestrator
+        self.orchestrator = AIPipelineOrchestrator()
 
     def process(
         self,
@@ -45,63 +35,60 @@ class AIPipeline:
         logger.info(f"=== Starting AI Processing Pipeline for Submission: {submission.id} ===")
         text = submission.description
         ward = submission.ward
-
-        # 1. Language Detection
-        lang = self.language_detector.detect(text)
-
-        # 2. Translation
-        english_text = self.translator.translate(text, lang)
-
-        # 3. Categorization
-        category = self.categorizer.categorize(english_text)
-
-        # 4. Sentiment & Urgency
-        sentiment_result = self.sentiment_analyzer.analyze(english_text)
-        sentiment = sentiment_result["sentiment"]
-        urgency_score = sentiment_result["urgency_score"]
-
-        # 5. Clustering (resolves and saves/links to AICluster in database)
         ward_name = ward.name if ward else "Unknown Ward"
-        cluster = self.clustering_service.assign_cluster(db, english_text, category, ward_name)
 
-        # 6. Summarization
-        summary = self.summarizer.summarize(english_text)
+        # 1. Run the new modular services pipeline
+        orchestrator_result = self.orchestrator.run_pipeline(text, submission.id)
 
-        # 7. Priority Score Calculations (using ward and cluster metadata)
+        # 2. Run the legacy clustering service to link/create AICluster in database
+        cluster = self.clustering_service.assign_cluster(
+            db, 
+            orchestrator_result.translated_text, 
+            orchestrator_result.category, 
+            ward_name
+        )
+
+        # 3. Calculate priority score using legacy priority engine
         priority_result = self.priority_engine.calculate_score(
-            urgency_score=urgency_score,
-            category=category,
-            sentiment=sentiment,
+            urgency_score=orchestrator_result.urgency,
+            category=orchestrator_result.category,
+            sentiment=orchestrator_result.sentiment,
             ward=ward,
             cluster=cluster
         )
 
-        # 8. Assistant Metadata Preparation (structured metadata for prompt retrieval)
+        # 4. Integrate all the new Explainability, Budget, SLA, and Recommendation schemas inside metadata
         assistant_metadata = {
             "submission_id": submission.id,
-            "category": category,
-            "detected_language": lang,
-            "sentiment": sentiment,
-            "urgency": urgency_score,
+            "category": orchestrator_result.category,
+            "detected_language": orchestrator_result.language,
+            "sentiment": orchestrator_result.sentiment,
+            "urgency": orchestrator_result.urgency,
             "priority_score": priority_result["priority_score"],
             "cluster_name": cluster.cluster_name,
             "ward_name": ward_name,
             "population_affected": ward.demographics.get("population", 0) if ward and ward.demographics else 0,
             "roads_condition": ward.infrastructure_metrics.get("roads_condition_score", 0) if ward and ward.infrastructure_metrics else 0,
-            "summary": summary
+            "summary": orchestrator_result.executive_summary,
+            
+            # Structuring the new modular services responses into the assistant metadata
+            "explainability": orchestrator_result.explainability.model_dump(),
+            "budget_prediction": orchestrator_result.budget_prediction.model_dump(),
+            "sla_prediction_details": orchestrator_result.sla_prediction_details.model_dump(),
+            "recommendation_report": orchestrator_result.recommendation_report.model_dump()
         }
 
         logger.info(f"=== AI Processing Pipeline Finished for Submission: {submission.id} ===")
         
         return {
-            "detected_language": lang,
-            "english_translation": english_text,
-            "category": category,
-            "sentiment": sentiment,
-            "urgency_score": urgency_score,
+            "detected_language": orchestrator_result.language,
+            "english_translation": orchestrator_result.translated_text,
+            "category": orchestrator_result.category,
+            "sentiment": orchestrator_result.sentiment,
+            "urgency_score": orchestrator_result.urgency,
             "cluster_name": cluster.cluster_name,
             "cluster_id": cluster.id,
-            "summary": summary,
+            "summary": orchestrator_result.executive_summary,
             "priority": priority_result,
             "metadata": assistant_metadata
         }
