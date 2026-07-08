@@ -445,7 +445,7 @@ Supabase PostgreSQL
 
 # Contributors
 
-**Lokesh Varma Pasupuleti**
+**Lokesh Varma Pasupuleti and K  Praveen Kumar**
 
 B.Tech Artificial Intelligence & Machine Learning
 
