@@ -1,117 +1,464 @@
 # Civitas AI
+### AI-Powered Citizen Feedback & Development Intelligence Platform
 
-Civitas AI is an AI Governance Intelligence Platform that maps citizen development requests to actionable, AI-powered project recommendations.
+<p align="center">
 
----
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![NextJS](https://img.shields.io/badge/Next.js-15-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## Project Architecture
-
-- **Frontend**: Next.js 16 (App Router, Tailwind CSS, Leaflet Maps, dynamic client rendering).
-- **Backend**: FastAPI (Python 3.11+, SQLAlchemy 2.0, PostgreSQL, Pydantic, Alembic).
-- **Database**: PostgreSQL 16 & pgAdmin 4 running inside Docker containers.
-
----
-
-## Getting Started
-
-### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Must be running)
-- [Node.js](https://nodejs.org/) (v18+)
-- [Python](https://www.python.org/) (v3.11+)
+</p>
 
 ---
 
-## 1. Database Setup (Docker)
+# Overview
 
-To start the database and pgAdmin management console:
+Civitas AI is an AI-powered governance platform designed to transform how citizen development requests are collected, analyzed, prioritized, and visualized.
 
-1. Spin up the containers from the project root:
-   ```bash
-   docker compose up -d
-   ```
-2. Services will start on the following ports:
-   - **PostgreSQL**: `localhost:5432` (Credentials: `postgres` / `postgres`)
-   - **pgAdmin**: [http://localhost:8080](http://localhost:8080) (Credentials: `admin@admin.com` / `admin`)
+Instead of relying on manual review of thousands of complaints, suggestions, letters, and social media requests, Civitas AI automatically consolidates citizen feedback, detects recurring issues, identifies demand hotspots, and recommends the most impactful development works.
+
+The platform provides decision-makers with actionable intelligence while giving citizens a simple multilingual interface to submit their concerns.
 
 ---
 
-## 2. Backend Setup (FastAPI)
+# Problem Statement
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   # On Windows:
-   .\venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-3. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Copy the environment variables:
-   ```bash
-   copy .env.example .env
-   ```
-5. Apply database migrations:
-   ```bash
-   alembic upgrade head
-   ```
-6. Seed database with realistic constituency data (12 Wards, 1,200 Citizen Submissions, 80 AI Recommendations, AI Clusters):
-   ```bash
-   python seed_data.py
-   ```
-7. Run the backend development server:
-   ```bash
-   uvicorn app.main:app --reload
-   ```
-   The API documentation will be available at [http://localhost:8000/docs](http://localhost:8000/docs).
+Development requests reach public representatives through multiple disconnected channels:
+
+- Public meetings
+- Grievance portals
+- Social media
+- Email
+- Letters
+- Voice messages
+- Images
+- Direct representations
+
+This creates several challenges:
+
+- Duplicate complaints
+- Manual prioritization
+- Subjective decision making
+- Poor visibility of recurring issues
+- Lack of demand analysis
+- Difficulty comparing competing development projects
+
+Civitas AI solves these problems using Artificial Intelligence.
 
 ---
 
-## 3. Frontend Setup (Next.js)
+# Solution
 
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Run the frontend development server:
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
+The platform enables citizens to submit development requests using:
 
----
+- Text
+- Voice
+- Images
+- Multilingual inputs
 
-## Database Schemas & Models (SQLAlchemy 2.0)
+The AI engine automatically:
 
-- **`Ward`**: Represents administrative municipal sectors with demographic data and infrastructure metrics.
-- **`CitizenSubmission`**: Tracks complaints/demands, reporting categories, timestamps, status and citizen sentiments.
-- **`AIAnalysis`**: Linked one-to-one with submissions containing AI-summarized insights, keyword extraction, and priority scores.
-- **`Recommendation`**: Lists AI-suggested developments (schools, hospitals, transit options) complete with budgets, impact estimations, and reasoning.
-- **`AICluster`**: Groups similar complaints together into prioritized sectors to identify systemic demands.
-- **`PublicDataset`**: Holds raw census/demographic metrics.
+- Detects language
+- Transcribes speech
+- Extracts text from images
+- Translates content
+- Categorizes complaints
+- Performs sentiment analysis
+- Generates summaries
+- Clusters similar requests
+- Calculates priority scores
+- Detects demand hotspots
+- Produces actionable recommendations
+
+The final result is a centralized intelligence dashboard that helps authorities understand what citizens actually need.
 
 ---
 
-## Troubleshooting
+# Key Features
 
-### Port 5432 is already allocated
-If Docker fails with a port allocation conflict, another PostgreSQL instance is likely running locally.
-- **Windows**: Stop the local service from Services (`Services.msc` -> PostgreSQL -> Stop) or find the PID and run `taskkill /F /PID <process_id>` finding it via `netstat -ano | findstr 5432`.
-- **Docker**: Run `docker ps` to find and stop conflicting containers via `docker stop <container_name>`.
+## Citizen Portal
 
-### Next.js Build Fails on Leaflet
-Next.js Server Components compile on the server side and do not have access to the browser global `window`. Ensure any Leaflet maps are loaded dynamically inside Client Components:
-```typescript
-import dynamic from 'next/dynamic';
-const HotspotMap = dynamic(() => import('@/components/dashboard/HotspotMap'), { ssr: false });
+- Submit complaints
+- Submit suggestions
+- Upload images
+- Upload voice recordings
+- Multilingual support
+- Track submissions
+
+---
+
+## AI Processing Pipeline
+
+Every submission passes through an intelligent processing pipeline:
+
 ```
+Submission
+      │
+      ▼
+Language Detection
+      │
+      ▼
+Speech-to-Text (if audio)
+      │
+      ▼
+OCR (if image)
+      │
+      ▼
+Translation
+      │
+      ▼
+Categorization
+      │
+      ▼
+Sentiment Analysis
+      │
+      ▼
+Summarization
+      │
+      ▼
+Similarity Detection
+      │
+      ▼
+Clustering
+      │
+      ▼
+Priority Engine
+      │
+      ▼
+Recommendations
+```
+
+---
+
+## Dashboard
+
+Interactive governance dashboard featuring:
+
+- KPI Cards
+- Analytics
+- AI Recommendations
+- Demand Hotspots
+- Ward Statistics
+- Monthly Trends
+- Priority Distribution
+- Review Queue
+- Infrastructure Insights
+
+---
+
+## AI Assistant
+
+Natural language assistant capable of answering governance-related questions such as:
+
+- What are the highest priority issues?
+- Which ward has the most complaints?
+- Show recent water supply issues.
+- Which development work should be prioritized?
+
+---
+
+## Monitoring
+
+Built-in monitoring includes:
+
+- Health endpoint
+- Metrics endpoint
+- System status
+- API latency
+- Database latency
+- Cache monitoring
+- Error rate tracking
+
+---
+
+## Authentication
+
+Secure authentication system featuring:
+
+- JWT Authentication
+- Refresh Tokens
+- Password Reset
+- RBAC
+- Session Management
+
+---
+
+# AI Capabilities
+
+- Language Detection
+- Translation
+- OCR
+- Speech-to-Text
+- Sentiment Analysis
+- Complaint Categorization
+- AI Summarization
+- Semantic Similarity Detection
+- Complaint Clustering
+- AI Priority Ranking
+- Recommendation Engine
+
+---
+
+# Architecture
+
+```
+                     Citizens
+                         │
+      ┌──────────────────┴──────────────────┐
+      │                                     │
+  Text / Voice / Image                Web Portal
+      │                                     │
+      └───────────────┬─────────────────────┘
+                      │
+               FastAPI Backend
+                      │
+       ┌──────────────┼──────────────┐
+       │              │              │
+ Authentication    AI Engine     Database
+       │              │              │
+       │      NLP Processing         │
+       │      OCR                    │
+       │      Speech Recognition     │
+       │      Clustering             │
+       │      Priority Engine        │
+       │              │              │
+       └──────────────┼──────────────┘
+                      │
+              Analytics Dashboard
+```
+
+---
+
+# Tech Stack
+
+## Frontend
+
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- Recharts
+- Leaflet Maps
+
+---
+
+## Backend
+
+- FastAPI
+- SQLAlchemy
+- Alembic
+- Pydantic
+- JWT Authentication
+
+---
+
+## Database
+
+- PostgreSQL
+- SQLite (Development)
+
+---
+
+## AI / NLP
+
+- Transformers
+- OCR
+- Speech-to-Text
+- Language Detection
+- Translation
+- Clustering
+- Similarity Matching
+
+---
+
+## DevOps
+
+- Docker
+- Docker Compose
+- GitHub Actions
+- Railway
+- Vercel
+
+---
+
+# Folder Structure
+
+```
+Civitas-AI/
+
+backend/
+│
+├── app/
+│   ├── api/
+│   ├── services/
+│   ├── ai_pipeline/
+│   ├── models/
+│   ├── schemas/
+│   ├── database/
+│   └── main.py
+│
+├── alembic/
+├── tests/
+└── requirements.txt
+
+frontend/
+│
+├── app/
+├── components/
+├── lib/
+└── public/
+
+docs/
+datasets/
+assets/
+```
+
+---
+
+# API Endpoints
+
+## Authentication
+
+```
+POST /auth/login
+POST /auth/refresh
+POST /auth/logout
+POST /auth/reset-password/request
+POST /auth/reset-password/confirm
+```
+
+---
+
+## Citizen Requests
+
+```
+GET /submissions
+
+POST /submissions
+```
+
+---
+
+## AI
+
+```
+POST /ai/process/{submission_id}
+
+POST /assistant/query
+```
+
+---
+
+## Analytics
+
+```
+GET /analytics
+
+GET /recommendations
+```
+
+---
+
+## Monitoring
+
+```
+GET /health
+
+GET /metrics
+
+GET /system/status
+```
+
+---
+
+# Security Features
+
+- JWT Authentication
+- Role-Based Access Control
+- Refresh Tokens
+- Rate Limiting
+- Secure HTTP Headers
+- Input Validation
+- Password Hashing
+- Session Revocation
+
+---
+
+# Testing
+
+The backend includes automated tests covering:
+
+- Authentication
+- Authorization
+- AI Pipeline
+- Monitoring
+- Recommendations
+- Analytics
+- Background Jobs
+- Submission APIs
+
+```
+66 Tests Passed
+```
+
+---
+
+# Future Scope
+
+- WhatsApp Integration
+- Telegram Bot
+- Mobile Application
+- GIS Heatmaps
+- Real-time Notifications
+- AI Budget Estimation
+- Predictive Infrastructure Planning
+- Smart City Integration
+- Government API Integration
+- LLM-powered Policy Insights
+
+---
+
+# Deployment
+
+Frontend
+
+```
+Vercel
+```
+
+Backend
+
+```
+Railway
+```
+
+Database
+
+```
+Supabase PostgreSQL
+```
+
+---
+
+# Contributors
+
+**Lokesh Varma Pasupuleti**
+
+B.Tech Artificial Intelligence & Machine Learning
+
+Marwadi University
+
+---
+
+# License
+
+MIT License
+
+---
+
+# Acknowledgements
+
+Built for the **People's Priorities Track** to demonstrate how Artificial Intelligence can improve citizen engagement, evidence-based development planning, and data-driven governance.
