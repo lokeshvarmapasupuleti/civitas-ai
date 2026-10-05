@@ -1,11 +1,28 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from app.api.router import api_router
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    from app.database import Base, engine, SessionLocal
+    from app.services.auth import AuthService
+    # Create all tables if not exist
+    Base.metadata.create_all(bind=engine)
+    # Seed permissions, roles, and default users
+    db = SessionLocal()
+    try:
+        AuthService.seed_roles_and_permissions(db)
+    finally:
+        db.close()
+    yield
 
 app = FastAPI(
     title="Civitas AI API",
     description="AI Governance Intelligence Platform",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # Configure CORS to allow access from the frontend local dev environments
@@ -43,16 +60,4 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Include unified API router
 app.include_router(api_router)
 
-@app.on_event("startup")
-def on_startup():
-    from app.database import Base, engine, SessionLocal
-    from app.services.auth import AuthService
-    # Create all tables if not exist
-    Base.metadata.create_all(bind=engine)
-    # Seed permissions, roles, and default users
-    db = SessionLocal()
-    try:
-        AuthService.seed_roles_and_permissions(db)
-    finally:
-        db.close()
 

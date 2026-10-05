@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { api, Recommendation } from "@/lib/api";
-import { BrainCircuit } from "lucide-react";
+import { BrainCircuit, ArrowUpRight } from "lucide-react";
 
 export default function RecommendationList() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     api.getRecommendations()
@@ -61,26 +63,34 @@ export default function RecommendationList() {
         <p className="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-wider">Suggested actions based on citizen requirements</p>
 
         <div className="mt-5 space-y-3.5">
-          {recommendations.map((item, index) => (
-            <div
-              key={item.title + index}
-              className="border border-slate-100 rounded-xl p-4 hover:bg-slate-50 transition-all duration-200 cursor-pointer"
-            >
-              <h3 className="text-slate-800 font-bold text-xs leading-tight">
-                {item.title}
-              </h3>
+          {recommendations.map((item, index) => {
+            const id = item.id || (index + 1);
+            return (
+              <div
+                key={item.title + index}
+                onClick={() => router.push(`/recommendations/${id}`)}
+                className="border border-slate-100 rounded-xl p-4 hover:bg-slate-50 hover:border-indigo-200 transition-all duration-200 cursor-pointer group"
+              >
+                <div className="flex justify-between items-start gap-2">
+                  <h3 className="text-slate-800 font-bold text-xs leading-tight group-hover:text-indigo-600 transition">
+                    {item.title}
+                  </h3>
+                  <ArrowUpRight size={14} className="text-slate-400 group-hover:text-indigo-600 transition flex-shrink-0" />
+                </div>
 
-              <div className="flex justify-between items-center mt-2.5">
-                <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400">{item.ward}</span>
+                <div className="flex justify-between items-center mt-2.5">
+                  <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400">{item.ward}</span>
 
-                <span className="text-[9px] font-extrabold text-indigo-700 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded-full">
-                  Score {item.score}
-                </span>
+                  <span className="text-[9px] font-extrabold text-indigo-700 bg-indigo-50 border border-indigo-100/50 px-2 py-0.5 rounded-full">
+                    Score {item.score}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
+

@@ -2,7 +2,7 @@ services:
   - type: web
     name: civitas-ai-backend
     runtime: docker
-    dockerfilePath: ./Dockerfile.backend
+    dockerfilePath: ./backend/Dockerfile
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL

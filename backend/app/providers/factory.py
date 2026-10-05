@@ -1,4 +1,5 @@
 import os
+import logging
 from typing import Optional
 from app.providers.base import BaseAIProvider
 from app.providers.mock_provider import MockAIProvider
@@ -8,6 +9,9 @@ from app.providers.ollama_provider import OllamaProvider
 from app.providers.huggingface_provider import HuggingFaceProvider
 from app.providers.azure_provider import AzureOpenAIProvider
 
+logger = logging.getLogger(__name__)
+
+
 class AIProviderFactory:
     _instance: Optional[BaseAIProvider] = None
 
@@ -15,41 +19,82 @@ class AIProviderFactory:
     def get_provider(cls) -> BaseAIProvider:
         if cls._instance is not None:
             return cls._instance
-            
-        provider_name = os.getenv("AI_PROVIDER", "mock").lower()
+
+        provider_name = os.getenv("AI_PROVIDER", "").strip().lower()
+
+        # Auto-detect provider from available API keys when AI_PROVIDER is not set
+        if not provider_name:
+            if os.getenv("GEMINI_API_KEY"):
+                provider_name = "gemini"
+                logger.info("Auto-detected AI provider: gemini (GEMINI_API_KEY is set)")
+            elif os.getenv("OPENAI_API_KEY"):
+                provider_name = "openai"
+                logger.info("Auto-detected AI provider: openai (OPENAI_API_KEY is set)")
+            elif os.getenv("HF_API_KEY"):
+                provider_name = "huggingface"
+                logger.info("Auto-detected AI provider: huggingface (HF_API_KEY is set)")
+            elif os.getenv("AZURE_OPENAI_KEY"):
+                provider_name = "azure"
+                logger.info("Auto-detected AI provider: azure (AZURE_OPENAI_KEY is set)")
+            else:
+                provider_name = "mock"
+                logger.info("No API keys found — using mock AI provider")
+
         app_env = os.getenv("APP_ENV", os.getenv("ENVIRONMENT", "development")).lower()
         production_env = app_env in {"prod", "production"}
         if production_env and provider_name == "mock":
-            raise RuntimeError("AI_PROVIDER must be set to a production provider outside development/testing.")
-        
+            raise RuntimeError(
+                "AI_PROVIDER must be set to a real provider in production. "
+                "Set GEMINI_API_KEY, OPENAI_API_KEY, HF_API_KEY, or AZURE_OPENAI_KEY."
+            )
+
         fallback_provider = MockAIProvider()
+
         if provider_name == "openai":
             key = os.getenv("OPENAI_API_KEY")
+            logger.info("Initialising OpenAI provider")
             cls._instance = OpenAIProvider(api_key=key, fallback=fallback_provider)
+
         elif provider_name == "gemini":
             key = os.getenv("GEMINI_API_KEY")
+            logger.info("Initialising Gemini provider")
             cls._instance = GeminiProvider(api_key=key, fallback=fallback_provider)
+
         elif provider_name == "ollama":
             host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+            logger.info("Initialising Ollama provider at %s", host)
             cls._instance = OllamaProvider(base_url=host, fallback=fallback_provider)
+
         elif provider_name == "huggingface":
             key = os.getenv("HF_API_KEY")
+            logger.info("Initialising HuggingFace provider")
             cls._instance = HuggingFaceProvider(api_key=key, fallback=fallback_provider)
+
         elif provider_name == "azure":
             key = os.getenv("AZURE_OPENAI_KEY")
             endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
             deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")
-            cls._instance = AzureOpenAIProvider(api_key=key, endpoint=endpoint, deployment_name=deployment, fallback=fallback_provider)
+            logger.info("Initialising Azure OpenAI provider (deployment: %s)", deployment)
+            cls._instance = AzureOpenAIProvider(
+                api_key=key,
+                endpoint=endpoint,
+                deployment_name=deployment,
+                fallback=fallback_provider,
+            )
+
         elif provider_name == "mock":
-            # Default fallback mock provider
+            logger.info("Initialising mock AI provider")
             cls._instance = fallback_provider
+
         else:
             if production_env:
-                raise RuntimeError(f"Unsupported AI_PROVIDER '{provider_name}'.")
+                raise RuntimeError(f"Unsupported AI_PROVIDER value: '{provider_name}'.")
+            logger.warning("Unknown AI_PROVIDER '%s', falling back to mock", provider_name)
             cls._instance = MockAIProvider()
-            
+
         return cls._instance
 
     @classmethod
     def reset_provider(cls):
+        """Reset the cached provider instance (useful for testing)."""
         cls._instance = None

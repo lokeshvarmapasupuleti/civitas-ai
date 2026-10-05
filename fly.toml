@@ -2,7 +2,7 @@ app = "civitas-ai-backend"
 primary_region = "bom"
 
 [build]
-  dockerfile = "Dockerfile.backend"
+  dockerfile = "backend/Dockerfile"
 
 [env]
   AI_PROVIDER = "mock"
